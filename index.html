@@ -36,7 +36,10 @@
           <img src="assets/logo.png" alt="Utbildning Nord • Koulutus Nord" class="w-12 h-12 md:w-14 md:h-14 object-contain">
         </div>
         <div>
-          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-300 block">Utbildning Nord &bull; Koulutus Nord</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-300">Utbildning Nord &bull; Koulutus Nord</span>
+            <button type="button" onclick="triggerReindeer()" class="inline-flex items-center text-sm hover:scale-135 active:scale-95 transition-transform cursor-pointer select-none" title="Lapland Easter Egg: Click the reindeer! 🦌">🦌</button>
+          </div>
           <h1 id="t-title" class="text-xl md:text-2xl font-bold tracking-tight text-white leading-tight">Incident Reporter</h1>
           <p id="t-subtitle" class="text-xs text-slate-400 mt-0.5">Work environment & safety reporting system</p>
         </div>
@@ -251,12 +254,22 @@
     <div class="bg-slate-50 px-6 py-4 border-t border-slate-200/80 text-center">
       <p id="t-footer-note" class="text-xs text-slate-500">
         Reports comply with work environment guidelines (Arbetsmiljöverket). Information is processed confidentially.
+        <button type="button" onclick="triggerReindeer()" class="inline-block hover:scale-135 transition-transform duration-200 cursor-pointer ml-1 select-none opacity-70 hover:opacity-100" title="🦌 Lapland Easter Egg">🦌</button>
       </p>
     </div>
 
     <!-- Bottom Decorative Nordic Stripe (exact sample match) -->
     <div class="nordic-stripe w-full border-t border-slate-200"></div>
 
+  </div>
+
+  <!-- Floating Reindeer Easter Egg Toast -->
+  <div id="reindeerToast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900/95 backdrop-blur text-white px-4 py-3 rounded-2xl shadow-2xl border border-blue-400/40 flex items-center gap-3 transition-all duration-300">
+    <span class="text-2xl animate-bounce select-none">🦌</span>
+    <div>
+      <p class="text-xs font-bold text-amber-400">Lapland Easter Egg Activated!</p>
+      <p id="reindeerToastMsg" class="text-xs text-slate-200">Autofilled with legendary Nordic test data.</p>
+    </div>
   </div>
 
   <script>
@@ -269,9 +282,9 @@
         anon: "Submit anonymously",
         reporter: "Your name and contact details (Who is reporting)",
         reporterHelp: "If not anonymous, your contact info enables follow-up on safety measures.",
-        reporterPlaceholder: "Full name, email or phone number",
+        reporterPlaceholder: "e.g. Rudolph Reindeer / Sven Fjordson",
         witnesses: "Any witnesses / people involved",
-        witnessesPlaceholder: "e.g. John Doe, Anna Smith",
+        witnessesPlaceholder: "e.g. Tor Thunder, Santa's Arctic Helper",
         datetime: "Date and time of incident",
         location: "Location and department",
         locationPlaceholder: "-- Select department / location --",
@@ -311,9 +324,9 @@
         anon: "Skicka anonymt",
         reporter: "Ditt namn och kontakt (Vem rapporterar)",
         reporterHelp: "Om du inte är anonym kan skyddsansvariga återkoppla om vidtagna åtgärder.",
-        reporterPlaceholder: "Namn, e-post eller telefonnummer",
+        reporterPlaceholder: "t.ex. Sven Surströmming / Bosse Bildoktorn",
         witnesses: "Eventuella vittnen / inblandade",
-        witnessesPlaceholder: "t.ex. Anna Andersson, Johan",
+        witnessesPlaceholder: "t.ex. Glenn från Göteborg, Ronja Rövardotter",
         datetime: "Datum och klockslag för händelsen",
         location: "Plats och enhet där händelsen skedde",
         locationPlaceholder: "-- Välj enhet / plats --",
@@ -353,9 +366,9 @@
         anon: "Lähetä nimettömänä",
         reporter: "Nimesi ja yhteystietosi (Ilmoittaja)",
         reporterHelp: "Jos et ole nimetön, turvallisuusvastaava voi ottaa yhteyttä toimenpiteistä.",
-        reporterPlaceholder: "Nimi, sähköposti tai puhelinnumero",
+        reporterPlaceholder: "esim. Pertti 'Poro' Peuranpää / Seppo Räty",
         witnesses: "Mahdolliset todistajat / osalliset",
-        witnessesPlaceholder: "esim. Matti Meikäläinen",
+        witnessesPlaceholder: "esim. Väinämöinen, Tapani 'Tunturi' Torvinen",
         datetime: "Tapahtuman päivämäärä ja kellonaika",
         location: "Paikka ja osasto / yksikkö",
         locationPlaceholder: "-- Valitse osasto / paikka --",
@@ -395,9 +408,9 @@
         anon: "Send anonymt",
         reporter: "Ditt navn og kontaktinfo (Hvem rapporterer)",
         reporterHelp: "Dersom du ikke er anonym kan verneombud følge opp tiltak.",
-        reporterPlaceholder: "Navn, e-post eller telefonnummer",
+        reporterPlaceholder: "f.eks. Svenn Brunost-Hansen / Ola 'Lusekofte'",
         witnesses: "Eventuelle vitner / involverte",
-        witnessesPlaceholder: "f.eks. Ola Nordmann",
+        witnessesPlaceholder: "f.eks. Tor Fjordknuser, Einar Elghufs",
         datetime: "Dato og klokkeslett for hendelsen",
         location: "Sted og enhet der hendelsen skjedde",
         locationPlaceholder: "-- Velg avdeling / sted --",
@@ -601,6 +614,74 @@
       setDefaultDateTime();
       document.getElementById('successState').classList.add('hidden');
       document.getElementById('reportForm').classList.remove('hidden');
+    }
+
+    function triggerReindeer() {
+      // Uncheck anonymous if checked so funny name shows
+      const anonToggle = document.getElementById('anonToggle');
+      if (anonToggle && anonToggle.checked) {
+        anonToggle.checked = false;
+        toggleAnon();
+      }
+
+      const reindeerData = {
+        fi: {
+          reporter: "Pertti 'Poro' Peuranpää (pertti@poromaa.fi)",
+          witnesses: "Väinämöinen & Tapani 'Tunturi' Torvinen",
+          location: "Workshop / Welding",
+          desc: "Poro (Rangifer tarandus) käveli rauhallisesti työpajaan tutkimaan hitsauskypäriä ja söi työnjohtajan eväspullasta puolet.",
+          causes: "Ovi oli auki tuuletusta varten ja ulkona puhalsi kylmä tunturituuli.",
+          actions: "Poro saatettiin ystävällisesti takaisin tunturille ja ovi suljettiin huolellisesti.",
+          toast: "Lomake täytetty Pertti Peuranpään pororaportilla! 🦌"
+        },
+        no: {
+          reporter: "Svenn Brunost-Hansen (svenn@fjordmail.no)",
+          witnesses: "Tor Fjordknuser & Einar Elghufs",
+          location: "Automotive",
+          desc: "En nysgjerrig rein spaserte rolig inn på bilverkstedet og inspiserte dekkskiftet før den krevde litt tørrfisk.",
+          causes: "Verkstedporten sto på gløtt og det luktet nystekte vafler fra pauserommet.",
+          actions: "Reinen ble vennlig eskortert ut i det fri med en skive geitost.",
+          toast: "Skjema fylt ut med Svenn Brunost & tørrfisk-reinen! 🦌"
+        },
+        sv: {
+          reporter: "Sven Surströmming (sven@norrland.se)",
+          witnesses: "Glenn från Göteborg & Ronja Rövardotter",
+          location: "Workshop / Welding",
+          desc: "En ståtlig ren spatserade in genom verkstadsdörren, lånade ett par svetsglasögon och slickade nyfiket på skruvstycket.",
+          causes: "Verkstadsdörren stod på glänt och det saknades färsk renlav på parkeringen.",
+          actions: "Bjöds på lite fika och leddes vänligt och lugnt tillbaka ut till skogsbrynet.",
+          toast: "Ifyllt med Sven Surströmming & verkstadsrenen! 🦌"
+        },
+        en: {
+          reporter: "Rudolph Reindeer (rudolph@northpole.se)",
+          witnesses: "Tor Thunder & Santa's Arctic Helper",
+          location: "Workshop / Welding",
+          desc: "A friendly Arctic reindeer calmly strolled into the vocational workshop, tried on safety goggles, and inspected the drill press.",
+          causes: "Workshop door was left ajar for ventilation; reindeer was on an urgent quest for fresh lichen.",
+          actions: "Respectfully escorted back to the Lapland wilderness and given a bucket of moss.",
+          toast: "Filled with Rudolph & Arctic workshop safety data! 🦌"
+        }
+      };
+
+      const data = reindeerData[currentLang] || reindeerData.en;
+      document.getElementById('reporterInput').value = data.reporter;
+      document.getElementById('witnessesInput').value = data.witnesses;
+      document.getElementById('locationSelect').value = data.location;
+      document.getElementById('descInput').value = data.desc;
+      document.getElementById('causesInput').value = data.causes;
+      document.getElementById('actionsInput').value = data.actions;
+      document.getElementById('safetySelect').value = 'yes';
+
+      // Show toast
+      const toast = document.getElementById('reindeerToast');
+      const toastMsg = document.getElementById('reindeerToastMsg');
+      if (toast && toastMsg) {
+        toastMsg.innerText = data.toast;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 4000);
+      }
     }
 
     // Initialize with English as default
