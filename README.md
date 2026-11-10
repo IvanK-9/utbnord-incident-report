@@ -1,4 +1,4 @@
-# Utbildning Nord – Incident & Near-Miss Reporting Portal
+# utbnord-incident-report — Utbildning Nord Incident Reporter
 
 A lightweight, accessible, multilingual incident and near-miss reporting web application designed for students and staff at **Utbildning Nord / Koulutus NORD**.
 
