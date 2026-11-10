@@ -10,12 +10,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    
+    /* Authentic Utbildning Nord tri-national Nordic decorative border (Norway, Sweden, Finland) */
+    .nordic-stripe {
+      background-color: #ffffff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='26' viewBox='0 0 230 26'%3E%3Crect width='230' height='26' fill='%23ffffff'/%3E%3C!-- Norway --%3E%3Crect x='8' width='24' height='26' fill='%23BA0C2F'/%3E%3Crect x='32' width='3' height='26' fill='%23ffffff'/%3E%3Crect x='35' width='10' height='26' fill='%2300205B'/%3E%3Crect x='45' width='3' height='26' fill='%23ffffff'/%3E%3Crect x='48' width='24' height='26' fill='%23BA0C2F'/%3E%3C!-- Sweden --%3E%3Crect x='86' width='26' height='26' fill='%23005293'/%3E%3Crect x='112' width='10' height='26' fill='%23FECC00'/%3E%3Crect x='122' width='26' height='26' fill='%23005293'/%3E%3C!-- Finland --%3E%3Crect x='162' width='15' height='26' fill='%23ffffff'/%3E%3Crect x='177' width='12' height='26' fill='%23002F6C'/%3E%3Crect x='189' width='15' height='26' fill='%23ffffff'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 230px 26px;
+      height: 26px;
+    }
+    
+    /* Lapland / Sámi 4-color accent ribbon */
+    .sami-ribbon {
+      height: 4px;
+      background: linear-gradient(90deg, 
+        #E1001A 0%, #E1001A 25%, 
+        #009A44 25%, #009A44 50%, 
+        #FFD100 50%, #FFD100 75%, 
+        #003399 75%, #003399 100%
+      );
+    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen py-8 px-4 flex flex-col items-center">
 
   <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200/80 overflow-hidden">
     
+    <!-- Top Decorative Nordic & Lapland Stripe -->
+    <div class="nordic-stripe w-full border-b border-slate-200"></div>
+    <div class="sami-ribbon w-full"></div>
+
     <!-- Top Branding & Language Bar -->
     <div class="bg-slate-900 text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div>
@@ -23,16 +47,60 @@
           <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
           <span class="text-xs uppercase tracking-wider font-semibold text-slate-300">Utbildning Nord &bull; Koulutus Nord</span>
         </div>
-        <h1 id="t-title" class="text-2xl font-bold mt-1 tracking-tight">Incident Report</h1>
+        <h1 id="t-title" class="text-2xl font-bold mt-1 tracking-tight">Incident Reporter</h1>
         <p id="t-subtitle" class="text-xs text-slate-400 mt-0.5">Work environment & safety reporting system</p>
       </div>
 
-      <!-- Language Selector -->
-      <div class="flex items-center bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 shadow-inner">
-        <button type="button" onclick="setLang('en')" id="btn-en" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all bg-blue-600 text-white shadow-sm">EN</button>
-        <button type="button" onclick="setLang('sv')" id="btn-sv" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white">SV</button>
-        <button type="button" onclick="setLang('fi')" id="btn-fi" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white">FI</button>
-        <button type="button" onclick="setLang('no')" id="btn-no" class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white">NO</button>
+      <!-- Language Selector with Flags in order: SV, FI, NO, EN -->
+      <div class="flex items-center bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/60 shadow-inner gap-1">
+        <!-- 1. SV -->
+        <button type="button" onclick="setLang('sv')" id="btn-sv"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-700/60">
+          <svg class="w-4 h-3 rounded-xs overflow-hidden flex-shrink-0 shadow-xs" viewBox="0 0 16 10">
+            <rect width="16" height="10" fill="#005293"/>
+            <rect x="5" width="2" height="10" fill="#FECC00"/>
+            <rect y="4" width="16" height="2" fill="#FECC00"/>
+          </svg>
+          <span>SV</span>
+        </button>
+
+        <!-- 2. FI -->
+        <button type="button" onclick="setLang('fi')" id="btn-fi"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-700/60">
+          <svg class="w-4 h-3 rounded-xs overflow-hidden flex-shrink-0 shadow-xs border border-slate-400/40" viewBox="0 0 18 11">
+            <rect width="18" height="11" fill="#FFFFFF"/>
+            <rect x="5" width="3" height="11" fill="#002F6C"/>
+            <rect y="4" width="18" height="3" fill="#002F6C"/>
+          </svg>
+          <span>FI</span>
+        </button>
+
+        <!-- 3. NO -->
+        <button type="button" onclick="setLang('no')" id="btn-no"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-700/60">
+          <svg class="w-4 h-3 rounded-xs overflow-hidden flex-shrink-0 shadow-xs" viewBox="0 0 22 16">
+            <rect width="22" height="16" fill="#BA0C2F"/>
+            <path d="M0,8h22M8,0v16" stroke="#FFFFFF" stroke-width="4"/>
+            <path d="M0,8h22M8,0v16" stroke="#00205B" stroke-width="2"/>
+          </svg>
+          <span>NO</span>
+        </button>
+
+        <!-- 4. EN (Default) -->
+        <button type="button" onclick="setLang('en')" id="btn-en"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all bg-blue-600 text-white shadow-sm ring-1 ring-white/20">
+          <svg class="w-4 h-3 rounded-xs overflow-hidden flex-shrink-0 shadow-xs" viewBox="0 0 60 30">
+            <clipPath id="uk-flag-clip"><rect width="60" height="30"/></clipPath>
+            <g clip-path="url(#uk-flag-clip)">
+              <rect width="60" height="30" fill="#012169"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFFFFF" stroke-width="6"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#FFFFFF" stroke-width="10"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+            </g>
+          </svg>
+          <span>EN</span>
+        </button>
       </div>
     </div>
 
@@ -184,6 +252,10 @@
         Reports comply with work environment guidelines (Arbetsmiljöverket). Information is processed confidentially.
       </p>
     </div>
+
+    <!-- Bottom Decorative Nordic & Lapland Stripe -->
+    <div class="sami-ribbon w-full"></div>
+    <div class="nordic-stripe w-full border-t border-slate-200"></div>
 
   </div>
 
@@ -419,9 +491,9 @@
       ['en', 'sv', 'fi', 'no'].forEach(l => {
         const btn = document.getElementById('btn-' + l);
         if (l === lang) {
-          btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-all bg-blue-600 text-white shadow-sm";
+          btn.className = "flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all bg-blue-600 text-white shadow-sm ring-1 ring-white/20";
         } else {
-          btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white";
+          btn.className = "flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-700/60";
         }
       });
     }
