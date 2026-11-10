@@ -145,15 +145,25 @@
           </div>
         </div>
 
-        <!-- Section 2: Location and department -->
-        <div class="space-y-1.5">
-          <label id="t-location" for="locationSelect" class="block text-sm font-medium text-slate-700">
-            Location and department <span class="text-red-500">*</span>
-          </label>
-          <select id="locationSelect" required
-            class="w-full h-11 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-2xs">
-            <!-- populated dynamically -->
-          </select>
+        <!-- Section 2: Date and Location -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col justify-between">
+            <label id="t-datetime" for="datetimeInput" class="block text-sm font-medium text-slate-700 mb-1.5">
+              Date and time of incident <span class="text-red-500">*</span>
+            </label>
+            <input type="datetime-local" id="datetimeInput" required
+              class="w-full h-11 rounded-xl border border-slate-300 px-3.5 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-2xs">
+          </div>
+
+          <div class="flex flex-col justify-between">
+            <label id="t-location" for="locationSelect" class="block text-sm font-medium text-slate-700 mb-1.5">
+              Location and department <span class="text-red-500">*</span>
+            </label>
+            <select id="locationSelect" required
+              class="w-full h-11 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-2xs">
+              <!-- populated dynamically -->
+            </select>
+          </div>
         </div>
 
         <!-- Section 3: Description -->
@@ -189,35 +199,40 @@
         </div>
 
         <!-- Section 6: Safety Representative & Photo -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="space-y-1.5">
-            <label id="t-safety" for="safetySelect" class="block text-sm font-medium text-slate-700">
-              Has the safety representative been informed?
-            </label>
-            <select id="safetySelect"
-              class="w-full h-11 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-2xs">
-              <option value="no" id="t-opt-no">No</option>
-              <option value="yes" id="t-opt-yes">Yes</option>
-              <option value="unknown" id="t-opt-unknown">Not sure</option>
-            </select>
+        <div class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex flex-col justify-between">
+              <label id="t-safety" for="safetySelect" class="block text-sm font-medium text-slate-700 mb-1.5">
+                Has the safety representative been informed?
+              </label>
+              <select id="safetySelect"
+                class="w-full h-11 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition shadow-2xs">
+                <option value="no" id="t-opt-no">No</option>
+                <option value="yes" id="t-opt-yes">Yes</option>
+                <option value="unknown" id="t-opt-unknown">Not sure</option>
+              </select>
+            </div>
+
+            <div class="flex flex-col justify-between">
+              <label id="t-photo" for="photoInput" class="block text-sm font-medium text-slate-700 mb-1.5">
+                Photo documentation (optional)
+              </label>
+              <div>
+                <label class="flex items-center justify-between w-full h-11 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer text-sm text-slate-600 transition shadow-2xs group">
+                  <span id="photoFileNameLabel" class="truncate">Attach photo...</span>
+                  <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
+                </label>
+              </div>
+            </div>
           </div>
 
-          <div class="space-y-1.5">
-            <label id="t-photo" for="photoInput" class="block text-sm font-medium text-slate-700">
-              Photo documentation (optional)
-            </label>
-            <label class="flex items-center justify-between w-full h-11 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer text-sm text-slate-600 transition shadow-2xs group">
-              <span id="photoFileNameLabel" class="truncate">Attach photo...</span>
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-              </svg>
-              <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
-            </label>
-            <div id="photoPreviewContainer" class="hidden mt-2 flex items-center gap-2 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
-              <img id="photoPreview" alt="Preview" class="w-10 h-10 object-cover rounded-md border border-slate-200">
-              <span id="photoFileName" class="text-xs text-slate-600 truncate max-w-[180px]"></span>
-              <button type="button" onclick="clearPhoto()" class="text-xs text-red-500 hover:underline ml-auto pr-1">Remove</button>
-            </div>
+          <div id="photoPreviewContainer" class="hidden flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+            <img id="photoPreview" alt="Preview" class="w-10 h-10 object-cover rounded-lg border border-slate-200">
+            <span id="photoFileName" class="text-xs text-slate-600 truncate max-w-[240px]"></span>
+            <button type="button" onclick="clearPhoto()" class="text-xs text-red-500 hover:underline ml-auto pr-2 font-medium">Remove</button>
           </div>
         </div>
 
@@ -438,7 +453,8 @@
       document.getElementById('t-witnesses').innerText = t.witnesses;
       document.getElementById('witnessesInput').placeholder = t.witnessesPlaceholder;
 
-      // Location
+      // Date and Location
+      document.getElementById('t-datetime').innerHTML = `${t.datetime} <span class="text-red-500">*</span>`;
       document.getElementById('t-location').innerHTML = `${t.location} <span class="text-red-500">*</span>`;
 
       // Departments Select
@@ -531,6 +547,19 @@
       document.getElementById('photoFileNameLabel').innerText = i18n[currentLang].attachPhoto;
     }
 
+    function setDefaultDateTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const dtInput = document.getElementById('datetimeInput');
+      if (dtInput) {
+        dtInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+      }
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
 
@@ -540,7 +569,7 @@
         isAnonymous: document.getElementById('anonToggle').checked,
         reporter: document.getElementById('reporterInput').value,
         witnesses: document.getElementById('witnessesInput').value,
-        incidentDateTime: new Date().toISOString(),
+        incidentDateTime: document.getElementById('datetimeInput').value || new Date().toISOString(),
         location: document.getElementById('locationSelect').value,
         description: document.getElementById('descInput').value,
         directCauses: document.getElementById('causesInput').value,
@@ -569,6 +598,7 @@
       document.getElementById('reportForm').reset();
       clearPhoto();
       toggleAnon();
+      setDefaultDateTime();
       document.getElementById('successState').classList.add('hidden');
       document.getElementById('reportForm').classList.remove('hidden');
     }
@@ -576,6 +606,7 @@
     // Initialize with English as default
     window.addEventListener('DOMContentLoaded', () => {
       setLang('en');
+      setDefaultDateTime();
     });
   </script>
 </body>
