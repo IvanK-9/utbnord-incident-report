@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="page-title">Utbildning Nord Incident Reporter</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,24 +12,13 @@
   <style>
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     
-    /* Authentic Utbildning Nord tri-national Nordic decorative border (Norway, Sweden, Finland) */
+    /* Exact Utbildning Nord tri-national Nordic decorative stripe matching the official brand sample */
     .nordic-stripe {
       background-color: #ffffff;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='26' viewBox='0 0 230 26'%3E%3Crect width='230' height='26' fill='%23ffffff'/%3E%3C!-- Norway --%3E%3Crect x='8' width='24' height='26' fill='%23BA0C2F'/%3E%3Crect x='32' width='3' height='26' fill='%23ffffff'/%3E%3Crect x='35' width='10' height='26' fill='%2300205B'/%3E%3Crect x='45' width='3' height='26' fill='%23ffffff'/%3E%3Crect x='48' width='24' height='26' fill='%23BA0C2F'/%3E%3C!-- Sweden --%3E%3Crect x='86' width='26' height='26' fill='%23005293'/%3E%3Crect x='112' width='10' height='26' fill='%23FECC00'/%3E%3Crect x='122' width='26' height='26' fill='%23005293'/%3E%3C!-- Finland --%3E%3Crect x='162' width='15' height='26' fill='%23ffffff'/%3E%3Crect x='177' width='12' height='26' fill='%23002F6C'/%3E%3Crect x='189' width='15' height='26' fill='%23ffffff'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='184' height='36' viewBox='0 0 184 36'%3E%3C!-- Finland Block --%3E%3Crect width='63' height='36' fill='%23ffffff'/%3E%3Crect x='16' width='9' height='36' fill='%23074c8f'/%3E%3C!-- Norway Block --%3E%3Crect x='63' width='16' height='36' fill='%23e54437'/%3E%3Crect x='79' width='2' height='36' fill='%23ffffff'/%3E%3Crect x='81' width='4' height='36' fill='%23033a78'/%3E%3Crect x='85' width='2' height='36' fill='%23ffffff'/%3E%3Crect x='87' width='35' height='36' fill='%23eb402d'/%3E%3C!-- Sweden Block --%3E%3Crect x='122' width='21' height='36' fill='%23006aa4'/%3E%3Crect x='143' width='7' height='36' fill='%23fccd03'/%3E%3Crect x='150' width='34' height='36' fill='%230065af'/%3E%3C/svg%3E");
       background-repeat: repeat-x;
-      background-size: 230px 26px;
-      height: 26px;
-    }
-    
-    /* Lapland / Sámi 4-color accent ribbon */
-    .sami-ribbon {
-      height: 4px;
-      background: linear-gradient(90deg, 
-        #E1001A 0%, #E1001A 25%, 
-        #009A44 25%, #009A44 50%, 
-        #FFD100 50%, #FFD100 75%, 
-        #003399 75%, #003399 100%
-      );
+      background-size: 184px 36px;
+      height: 36px;
     }
   </style>
 </head>
@@ -36,19 +26,20 @@
 
   <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200/80 overflow-hidden">
     
-    <!-- Top Decorative Nordic & Lapland Stripe -->
+    <!-- Top Decorative Nordic Stripe (exact sample match) -->
     <div class="nordic-stripe w-full border-b border-slate-200"></div>
-    <div class="sami-ribbon w-full"></div>
 
     <!-- Top Branding & Language Bar -->
     <div class="bg-slate-900 text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-          <span class="text-xs uppercase tracking-wider font-semibold text-slate-300">Utbildning Nord &bull; Koulutus Nord</span>
+      <div class="flex items-center gap-3.5">
+        <div class="bg-white p-1 rounded-xl shadow-xs border border-white/20 flex-shrink-0 flex items-center justify-center">
+          <img src="assets/logo.png" alt="Utbildning Nord • Koulutus Nord" class="w-12 h-12 md:w-14 md:h-14 object-contain">
         </div>
-        <h1 id="t-title" class="text-2xl font-bold mt-1 tracking-tight">Incident Reporter</h1>
-        <p id="t-subtitle" class="text-xs text-slate-400 mt-0.5">Work environment & safety reporting system</p>
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-300 block">Utbildning Nord &bull; Koulutus Nord</span>
+          <h1 id="t-title" class="text-xl md:text-2xl font-bold tracking-tight text-white leading-tight">Incident Reporter</h1>
+          <p id="t-subtitle" class="text-xs text-slate-400 mt-0.5">Work environment & safety reporting system</p>
+        </div>
       </div>
 
       <!-- Language Selector with Flags in order: SV, FI, NO, EN -->
@@ -253,8 +244,7 @@
       </p>
     </div>
 
-    <!-- Bottom Decorative Nordic & Lapland Stripe -->
-    <div class="sami-ribbon w-full"></div>
+    <!-- Bottom Decorative Nordic Stripe (exact sample match) -->
     <div class="nordic-stripe w-full border-t border-slate-200"></div>
 
   </div>
