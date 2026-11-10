@@ -221,21 +221,27 @@
                 Photo documentation (optional)
               </label>
               <div>
-                <label class="flex items-center justify-between w-full h-11 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer text-sm text-slate-600 transition shadow-2xs group">
-                  <span id="photoFileNameLabel" class="truncate">Attach photo...</span>
-                  <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                  <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
+                <label id="photoDropZone" class="flex items-center justify-between w-full h-11 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 cursor-pointer text-sm text-slate-600 transition shadow-2xs group">
+                  <span id="photoFileNameLabel" class="truncate">Attach photos...</span>
+                  <div class="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                    <span id="photoCountBadge" class="hidden text-xs bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full"></span>
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <input type="file" id="photoInput" accept="image/*" multiple class="hidden" onchange="handlePhotoSelect(event)">
                 </label>
               </div>
             </div>
           </div>
 
-          <div id="photoPreviewContainer" class="hidden flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
-            <img id="photoPreview" alt="Preview" class="w-10 h-10 object-cover rounded-lg border border-slate-200">
-            <span id="photoFileName" class="text-xs text-slate-600 truncate max-w-[240px]"></span>
-            <button type="button" onclick="clearPhoto()" class="text-xs text-red-500 hover:underline ml-auto pr-2 font-medium">Remove</button>
+          <!-- Multi-photo gallery preview -->
+          <div id="photoGalleryContainer" class="hidden space-y-2 pt-1">
+            <div class="flex items-center justify-between text-xs text-slate-500 px-1">
+              <span id="photoGalleryCount" class="font-medium text-slate-600">0 photos attached</span>
+              <button type="button" onclick="clearAllPhotos()" id="t-clearPhotos" class="text-red-500 hover:text-red-700 hover:underline font-medium">Remove all</button>
+            </div>
+            <div id="photoThumbnailsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
           </div>
         </div>
 
@@ -309,7 +315,11 @@
         optYes: "Yes",
         optUnknown: "Not sure",
         photo: "Photo documentation (optional)",
-        attachPhoto: "Attach photo...",
+        attachPhoto: "Attach photos...",
+        addMorePhotos: "+ Add more photos",
+        photosAttached: "photo(s) attached",
+        clearAllPhotos: "Remove all",
+        removePhoto: "Remove",
         submit: "Submit report",
         successTitle: "Report Submitted!",
         successMsg: "Thank you. Your incident report has been securely registered and delivered to the safety coordinators.",
@@ -351,7 +361,11 @@
         optYes: "Ja",
         optUnknown: "Vet ej",
         photo: "Fotodokumentation (valfritt)",
-        attachPhoto: "Bifoga foto...",
+        attachPhoto: "Bifoga foton...",
+        addMorePhotos: "+ Lägg till fler foton",
+        photosAttached: "foto(n) bifogade",
+        clearAllPhotos: "Ta bort alla",
+        removePhoto: "Ta bort",
         submit: "Skicka rapport",
         successTitle: "Rapporten har skickats!",
         successMsg: "Tack. Din tillbudsrapport har registrerats och skickats till skyddsansvariga.",
@@ -393,7 +407,11 @@
         optYes: "Kyllä",
         optUnknown: "Ei tietoa",
         photo: "Valokuvadokumentaatio (valinnainen)",
-        attachPhoto: "Liitä kuva...",
+        attachPhoto: "Liitä kuvia...",
+        addMorePhotos: "+ Lisää kuvia",
+        photosAttached: "kuva(a) liitetty",
+        clearAllPhotos: "Poista kaikki",
+        removePhoto: "Poista",
         submit: "Lähetä ilmoitus",
         successTitle: "Ilmoitus lähetetty!",
         successMsg: "Kiitos. Läheltä piti -ilmoituksesi on rekisteröity ja toimitettu turvallisuusvastaaville.",
@@ -435,7 +453,11 @@
         optYes: "Ja",
         optUnknown: "Vet ikke",
         photo: "Fotodokumentasjon (valgfritt)",
-        attachPhoto: "Legg ved bilde...",
+        attachPhoto: "Legg ved bilder...",
+        addMorePhotos: "+ Legg til flere bilder",
+        photosAttached: "bilde(r) lagt til",
+        clearAllPhotos: "Fjern alle",
+        removePhoto: "Fjern",
         submit: "Send rapport",
         successTitle: "Rapporten er sendt!",
         successMsg: "Takk. Din rapport er registrert og sendt videre til verneombud og ledelse.",
@@ -496,9 +518,7 @@
       document.getElementById('t-opt-yes').innerText = t.optYes;
       document.getElementById('t-opt-unknown').innerText = t.optUnknown;
       document.getElementById('t-photo').innerText = t.photo;
-      if (!document.getElementById('photoInput').files[0]) {
-        document.getElementById('photoFileNameLabel').innerText = t.attachPhoto;
-      }
+      renderPhotoGallery();
 
       // Submit & Success State
       document.getElementById('t-submit').querySelector('span').innerText = t.submit;
@@ -532,32 +552,95 @@
       }
     }
 
-    function handlePhotoSelect(event) {
-      const file = event.target.files[0];
-      const preview = document.getElementById('photoPreview');
-      const name = document.getElementById('photoFileName');
-      const label = document.getElementById('photoFileNameLabel');
-      const container = document.getElementById('photoPreviewContainer');
+    let attachedPhotos = [];
 
-      if (file) {
-        name.innerText = file.name;
-        label.innerText = file.name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          preview.src = e.target.result;
-          container.classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-      } else {
-        clearPhoto();
+    function formatFileSize(bytes) {
+      if (!bytes && bytes !== 0) return '';
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function addFiles(files) {
+      if (!files || !files.length) return;
+      files.forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const exists = attachedPhotos.some(p => p.file.name === file.name && p.file.size === file.size);
+        if (!exists) {
+          attachedPhotos.push({
+            file: file,
+            previewUrl: URL.createObjectURL(file),
+            sizeFormatted: formatFileSize(file.size)
+          });
+        }
+      });
+      renderPhotoGallery();
+    }
+
+    function handlePhotoSelect(event) {
+      if (event.target.files) {
+        addFiles(Array.from(event.target.files));
+        event.target.value = '';
       }
     }
 
-    function clearPhoto() {
-      document.getElementById('photoInput').value = '';
-      document.getElementById('photoPreview').src = '';
-      document.getElementById('photoPreviewContainer').classList.add('hidden');
-      document.getElementById('photoFileNameLabel').innerText = i18n[currentLang].attachPhoto;
+    function removePhoto(index) {
+      if (attachedPhotos[index]) {
+        URL.revokeObjectURL(attachedPhotos[index].previewUrl);
+        attachedPhotos.splice(index, 1);
+        renderPhotoGallery();
+      }
+    }
+
+    function clearAllPhotos() {
+      attachedPhotos.forEach(p => URL.revokeObjectURL(p.previewUrl));
+      attachedPhotos = [];
+      const input = document.getElementById('photoInput');
+      if (input) input.value = '';
+      renderPhotoGallery();
+    }
+
+    function renderPhotoGallery() {
+      const t = i18n[currentLang];
+      const container = document.getElementById('photoGalleryContainer');
+      const list = document.getElementById('photoThumbnailsList');
+      const countSpan = document.getElementById('photoGalleryCount');
+      const label = document.getElementById('photoFileNameLabel');
+      const badge = document.getElementById('photoCountBadge');
+      const clearBtn = document.getElementById('t-clearPhotos');
+
+      if (!container || !list || !label) return;
+
+      if (clearBtn) clearBtn.innerText = t.clearAllPhotos;
+
+      if (attachedPhotos.length === 0) {
+        container.classList.add('hidden');
+        list.innerHTML = '';
+        label.innerText = t.attachPhoto;
+        badge.classList.add('hidden');
+        badge.innerText = '';
+      } else {
+        container.classList.remove('hidden');
+        label.innerText = t.addMorePhotos;
+        badge.classList.remove('hidden');
+        badge.innerText = attachedPhotos.length;
+        countSpan.innerText = `${attachedPhotos.length} ${t.photosAttached}`;
+
+        list.innerHTML = attachedPhotos.map((p, idx) => `
+          <div class="flex items-center gap-2.5 bg-slate-50 p-2 rounded-xl border border-slate-200 group hover:border-slate-300 transition">
+            <img src="${p.previewUrl}" alt="Photo ${idx + 1}" class="w-11 h-11 object-cover rounded-lg border border-slate-200 flex-shrink-0 bg-white shadow-2xs">
+            <div class="min-w-0 flex-1">
+              <p class="text-xs font-medium text-slate-700 truncate" title="${p.file.name}">${p.file.name}</p>
+              <p class="text-[11px] text-slate-400">${p.sizeFormatted}</p>
+            </div>
+            <button type="button" onclick="removePhoto(${idx})" class="w-7 h-7 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 flex items-center justify-center transition flex-shrink-0" title="${t.removePhoto}" aria-label="${t.removePhoto}">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        `).join('');
+      }
     }
 
     function setDefaultDateTime() {
@@ -588,7 +671,13 @@
         directCauses: document.getElementById('causesInput').value,
         immediateActions: document.getElementById('actionsInput').value,
         safetyRepInformed: document.getElementById('safetySelect').value,
-        hasPhoto: !!document.getElementById('photoInput').files[0]
+        photos: attachedPhotos.map(p => ({
+          name: p.file.name,
+          size: p.file.size,
+          type: p.file.type
+        })),
+        photoCount: attachedPhotos.length,
+        hasPhoto: attachedPhotos.length > 0
       };
 
       // Store in localStorage for persistence / offline buffer
@@ -609,7 +698,7 @@
 
     function resetForm() {
       document.getElementById('reportForm').reset();
-      clearPhoto();
+      clearAllPhotos();
       toggleAnon();
       setDefaultDateTime();
       document.getElementById('successState').classList.add('hidden');
@@ -684,10 +773,33 @@
       }
     }
 
-    // Initialize with English as default
+    // Initialize with English as default & setup drag-drop
     window.addEventListener('DOMContentLoaded', () => {
       setLang('en');
       setDefaultDateTime();
+
+      const dropZone = document.getElementById('photoDropZone');
+      if (dropZone) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50');
+          });
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+          });
+        });
+        dropZone.addEventListener('drop', (e) => {
+          if (e.dataTransfer && e.dataTransfer.files) {
+            addFiles(Array.from(e.dataTransfer.files));
+          }
+        });
+      }
     });
   </script>
 </body>
