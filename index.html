@@ -18,8 +18,8 @@
       background-color: #ffffff;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='184' height='36' viewBox='0 0 184 36'%3E%3C!-- Finland Block --%3E%3Crect width='63' height='36' fill='%23ffffff'/%3E%3Crect x='16' width='9' height='36' fill='%23074c8f'/%3E%3C!-- Norway Block --%3E%3Crect x='63' width='16' height='36' fill='%23e54437'/%3E%3Crect x='79' width='2' height='36' fill='%23ffffff'/%3E%3Crect x='81' width='4' height='36' fill='%23033a78'/%3E%3Crect x='85' width='2' height='36' fill='%23ffffff'/%3E%3Crect x='87' width='35' height='36' fill='%23eb402d'/%3E%3C!-- Sweden Block --%3E%3Crect x='122' width='21' height='36' fill='%23006aa4'/%3E%3Crect x='143' width='7' height='36' fill='%23fccd03'/%3E%3Crect x='150' width='34' height='36' fill='%230065af'/%3E%3C/svg%3E");
       background-repeat: repeat-x;
-      background-size: 184px 36px;
-      height: 36px;
+      background-size: auto 20px;
+      height: 20px;
       overflow: hidden;
       cursor: crosshair;
     }
@@ -34,7 +34,7 @@
       transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       /* High-frequency crystalline frost noise + frosted gradient + cursor frost spotlight */
       background-image: 
-        radial-gradient(circle 90px at var(--frost-x, 50%) 50%, rgba(255, 255, 255, 0.7) 0%, rgba(220, 240, 255, 0.3) 50%, transparent 80%),
+        radial-gradient(circle 70px at var(--frost-x, 50%) 50%, rgba(255, 255, 255, 0.7) 0%, rgba(220, 240, 255, 0.3) 50%, transparent 80%),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='frostNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 1  0 1 0 0 1  0 0 1 0 1  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23frostNoise)'/%3E%3C/svg%3E"),
         linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(210, 235, 255, 0.35) 50%, rgba(255, 255, 255, 0.6) 100%);
       background-size: 100% 100%, 160px 160px, 100% 100%;
@@ -483,9 +483,9 @@
         footerNote: "Ilmoitukset noudattavat työsuojeluohjeita (Arbetsmiljöverket). Tiedot käsitellään luottamuksellisesti."
       },
       no: {
-        pageTitle: "Utbildning Nord – Avviks- og nestenulykkesrapport",
-        title: "Avviks- og nestenulykkesrapport",
-        subtitle: "System for rapportering av arbeidsmiljø og sikkerhet",
+        pageTitle: "Utbildning Nord – Avviksrapport",
+        title: "Avviksrapport",
+        subtitle: "System for registrering av avvik og nestenulykker",
         secWho: "1. Melder og vitner",
         anon: "Send anonymt",
         reporter: "Ditt navn og kontaktinfo (Hvem rapporterer)",

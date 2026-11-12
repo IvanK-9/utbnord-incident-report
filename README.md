@@ -1,5 +1,5 @@
 # Utbildning Nord — Incident & Near-Miss Reporter
-### *Tillbudsrapport • Läheltä piti -ilmoitus • Avviks- og nestenulykkesrapport*
+### *Tillbudsrapport • Läheltä piti -ilmoitus • Avviksrapport*
 
 > A zero-dependency, fully accessible, multilingual incident and near-miss (*tillbud*) reporting web application engineered for students, instructors, and staff at **Utbildning Nord / Koulutus NORD** (Övertorneå, Sweden). Fully compliant with Swedish **Arbetsmiljöverket** systematic work environment standards (SAM).
 
